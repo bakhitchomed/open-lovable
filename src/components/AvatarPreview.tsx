@@ -9,6 +9,8 @@ export interface AvatarConfig {
   skinColor: string;
   shirtStyle: 'tshirt' | 'hoodie';
   shirtColor: string;
+  accessory: 'none' | 'glasses';
+  background: string;
 }
 
 interface AvatarPreviewProps {
@@ -31,7 +33,7 @@ const AvatarPreview: React.FC<AvatarPreviewProps> = ({ config }) => {
   };
 
   return (
-    <div className="flex items-center justify-center w-64 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg p-4">
+    <div className={cn("flex items-center justify-center w-64 h-64 rounded-lg p-4", config.background)}>
       <div className="relative w-48 h-48">
         {/* Shirt */}
         <div
@@ -64,6 +66,15 @@ const AvatarPreview: React.FC<AvatarPreviewProps> = ({ config }) => {
             <div className={cn(eyeClasses)} />
             <div className={cn(eyeClasses, { 'h-1 w-4 mt-2': config.eyeStyle === 'wink', 'h-1 w-4': config.eyeStyle === 'closed' })} />
           </div>
+
+          {/* Accessory: Glasses */}
+          {config.accessory === 'glasses' && (
+            <div className="absolute top-10 left-1/2 -translate-x-1/2 flex items-center">
+              <div className="w-8 h-8 border-2 border-black rounded-full" />
+              <div className="w-4 h-1 bg-black" />
+              <div className="w-8 h-8 border-2 border-black rounded-full" />
+            </div>
+          )}
 
           {/* Mouth */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
